@@ -26,5 +26,50 @@ namespace Gypard
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(FieldA.Text);
+        }
+
+        private void Minus1_Click(object sender, EventArgs e)
+        {
+            int thing = Int32.Parse(SpeedNum.Text);
+            if (thing != 0)
+            {
+                thing--;
+                SpeedNum.Text = thing.ToString();
+            }
+        }
+
+        private void Plus1_Click(object sender, EventArgs e)
+        {
+            int thing = Int32.Parse(SpeedNum.Text);
+            if (thing != 10)
+            {
+                thing++;
+                SpeedNum.Text = thing.ToString();
+            }
+        }
+
+        private void Minus2_Click(object sender, EventArgs e)
+        {
+            int thing = Int32.Parse(AccelerationNum.Text);
+            if (thing != 0)
+            {
+                thing--;
+                AccelerationNum.Text = thing.ToString();
+            }
+        }
+
+        private void Plus2_Click(object sender, EventArgs e)
+        {
+            int thing = Int32.Parse(AccelerationNum.Text);
+            if (thing != 10)
+            {
+                thing++;
+                AccelerationNum.Text = thing.ToString();
+            }
+        }
     }
 }
