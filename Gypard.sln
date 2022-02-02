@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gypard", "Gypard\Gypard.csproj", "{3697E1AB-5BEC-4474-ACD1-3E92538A99C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE} = {ED87B764-001D-4F90-A40B-0ACCD6847AAE}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GypardC", "GypardC\GypardC.vcxproj", "{ED87B764-001D-4F90-A40B-0ACCD6847AAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,16 @@ Global
 		{3697E1AB-5BEC-4474-ACD1-3E92538A99C3}.Release|x64.Build.0 = Release|Any CPU
 		{3697E1AB-5BEC-4474-ACD1-3E92538A99C3}.Release|x86.ActiveCfg = Release|Any CPU
 		{3697E1AB-5BEC-4474-ACD1-3E92538A99C3}.Release|x86.Build.0 = Release|Any CPU
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Debug|x64.ActiveCfg = Debug|x64
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Debug|x64.Build.0 = Debug|x64
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Debug|x86.ActiveCfg = Debug|Win32
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Debug|x86.Build.0 = Debug|Win32
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Release|Any CPU.ActiveCfg = Release|Win32
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Release|x64.ActiveCfg = Release|x64
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Release|x64.Build.0 = Release|x64
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Release|x86.ActiveCfg = Release|Win32
+		{ED87B764-001D-4F90-A40B-0ACCD6847AAE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

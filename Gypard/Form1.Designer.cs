@@ -30,6 +30,9 @@ namespace Gypard
         private void InitializeComponent()
         {
             this.SidePanel = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Profile1 = new System.Windows.Forms.Button();
             this.BtnA = new System.Windows.Forms.TextBox();
             this.FieldA = new System.Windows.Forms.TextBox();
@@ -68,8 +71,7 @@ namespace Gypard
             this.FieldMinus = new System.Windows.Forms.TextBox();
             this.BtnMinus = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.BtnApply = new System.Windows.Forms.Button();
             this.BtnSpeed = new System.Windows.Forms.TextBox();
             this.BtnAcceleration = new System.Windows.Forms.TextBox();
             this.Minus1 = new System.Windows.Forms.Button();
@@ -78,18 +80,76 @@ namespace Gypard
             this.Plus2 = new System.Windows.Forms.Button();
             this.SpeedNum = new System.Windows.Forms.TextBox();
             this.AccelerationNum = new System.Windows.Forms.TextBox();
+            this.BtnRun = new System.Windows.Forms.Button();
+            this.BtnGuide = new System.Windows.Forms.Button();
             this.SidePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SidePanel
             // 
             this.SidePanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.SidePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SidePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SidePanel.Controls.Add(this.button3);
+            this.SidePanel.Controls.Add(this.button2);
+            this.SidePanel.Controls.Add(this.button1);
             this.SidePanel.Controls.Add(this.Profile1);
             this.SidePanel.Location = new System.Drawing.Point(12, 12);
             this.SidePanel.Name = "SidePanel";
             this.SidePanel.Size = new System.Drawing.Size(261, 641);
             this.SidePanel.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button3.Location = new System.Drawing.Point(-2, 168);
+            this.button3.Name = "button3";
+            this.button3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.button3.Size = new System.Drawing.Size(261, 54);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Version";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Arial Narrow", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button2.Location = new System.Drawing.Point(-2, -2);
+            this.button2.Name = "button2";
+            this.button2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.button2.Size = new System.Drawing.Size(262, 174);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Logo";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.Location = new System.Drawing.Point(3, 290);
+            this.button1.Name = "button1";
+            this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.button1.Size = new System.Drawing.Size(251, 58);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "About";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Profile1
             // 
@@ -100,7 +160,7 @@ namespace Gypard
             this.Profile1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Profile1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Profile1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Profile1.Location = new System.Drawing.Point(3, 15);
+            this.Profile1.Location = new System.Drawing.Point(3, 226);
             this.Profile1.Name = "Profile1";
             this.Profile1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Profile1.Size = new System.Drawing.Size(251, 58);
@@ -574,24 +634,22 @@ namespace Gypard
             this.textBox1.Text = "Bindings";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button1
+            // BtnApply
             // 
-            this.button1.Location = new System.Drawing.Point(516, 603);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 50);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(725, 608);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 39;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.BtnApply.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.BtnApply.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnApply.FlatAppearance.BorderColor = System.Drawing.Color.SteelBlue;
+            this.BtnApply.FlatAppearance.BorderSize = 2;
+            this.BtnApply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.BtnApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SkyBlue;
+            this.BtnApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnApply.Location = new System.Drawing.Point(641, 519);
+            this.BtnApply.Name = "BtnApply";
+            this.BtnApply.Size = new System.Drawing.Size(190, 52);
+            this.BtnApply.TabIndex = 38;
+            this.BtnApply.Text = "Apply all changes";
+            this.BtnApply.UseVisualStyleBackColor = false;
+            this.BtnApply.Click += new System.EventHandler(this.button1_Click);
             // 
             // BtnSpeed
             // 
@@ -723,12 +781,49 @@ namespace Gypard
             this.AccelerationNum.Text = "3";
             this.AccelerationNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // BtnRun
+            // 
+            this.BtnRun.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.BtnRun.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnRun.FlatAppearance.BorderColor = System.Drawing.Color.SteelBlue;
+            this.BtnRun.FlatAppearance.BorderSize = 2;
+            this.BtnRun.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.BtnRun.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SkyBlue;
+            this.BtnRun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BtnRun.Location = new System.Drawing.Point(575, 583);
+            this.BtnRun.Name = "BtnRun";
+            this.BtnRun.Size = new System.Drawing.Size(291, 73);
+            this.BtnRun.TabIndex = 48;
+            this.BtnRun.Text = "RUN";
+            this.BtnRun.UseVisualStyleBackColor = false;
+            this.BtnRun.Click += new System.EventHandler(this.BtnRun_Click);
+            // 
+            // BtnGuide
+            // 
+            this.BtnGuide.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.BtnGuide.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnGuide.FlatAppearance.BorderColor = System.Drawing.Color.SteelBlue;
+            this.BtnGuide.FlatAppearance.BorderSize = 2;
+            this.BtnGuide.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.BtnGuide.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SkyBlue;
+            this.BtnGuide.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnGuide.Location = new System.Drawing.Point(323, 595);
+            this.BtnGuide.Name = "BtnGuide";
+            this.BtnGuide.Size = new System.Drawing.Size(130, 55);
+            this.BtnGuide.TabIndex = 49;
+            this.BtnGuide.Text = "Guide";
+            this.BtnGuide.UseVisualStyleBackColor = false;
+            this.BtnGuide.Click += new System.EventHandler(this.BtnGuide_Click);
+            // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(878, 668);
+            this.Controls.Add(this.BtnGuide);
+            this.Controls.Add(this.BtnRun);
             this.Controls.Add(this.AccelerationNum);
             this.Controls.Add(this.SpeedNum);
             this.Controls.Add(this.Plus2);
@@ -737,8 +832,7 @@ namespace Gypard
             this.Controls.Add(this.Minus1);
             this.Controls.Add(this.BtnAcceleration);
             this.Controls.Add(this.BtnSpeed);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnApply);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.FieldMinus);
             this.Controls.Add(this.BtnMinus);
@@ -828,8 +922,7 @@ namespace Gypard
         private System.Windows.Forms.TextBox FieldMinus;
         private System.Windows.Forms.TextBox BtnMinus;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BtnApply;
         private System.Windows.Forms.TextBox BtnSpeed;
         private System.Windows.Forms.TextBox BtnAcceleration;
         private System.Windows.Forms.Button Minus1;
@@ -838,6 +931,11 @@ namespace Gypard
         private System.Windows.Forms.Button Plus2;
         private System.Windows.Forms.TextBox SpeedNum;
         private System.Windows.Forms.TextBox AccelerationNum;
+        private System.Windows.Forms.Button BtnRun;
+        private System.Windows.Forms.Button BtnGuide;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

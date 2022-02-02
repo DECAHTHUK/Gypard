@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Gypard
 {
     public partial class MainWin : Form
     {
+        [DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern int Lol();
         public MainWin()
         {
             InitializeComponent();
@@ -70,6 +73,19 @@ namespace Gypard
                 thing++;
                 AccelerationNum.Text = thing.ToString();
             }
+        }
+
+        private void BtnRun_Click(object sender, EventArgs e)
+        {
+            int a = 33;
+            Console.WriteLine(a);
+            a = Lol();
+            Console.WriteLine(a);
+        }
+
+        private void BtnGuide_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(FieldA.Text);
         }
     }
 }
