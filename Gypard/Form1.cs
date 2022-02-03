@@ -14,7 +14,7 @@ namespace Gypard
     public partial class MainWin : Form
     {
         [DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int Lol();
+        static extern void Lol();
         public MainWin()
         {
             InitializeComponent();
@@ -79,7 +79,7 @@ namespace Gypard
         {
             int a = 33;
             Console.WriteLine(a);
-            a = Lol();
+            //a = Lol();
             Console.WriteLine(a);
         }
 
