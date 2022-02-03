@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -14,8 +15,12 @@ namespace Gypard
     public partial class MainWin : Form
     {
         [DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void Lol();
-        public MainWin()
+        static extern void InitCons();
+
+		[DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
+		static extern void Stick(int handle);
+
+		public MainWin()
         {
             InitializeComponent();
         }
@@ -77,10 +82,8 @@ namespace Gypard
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
-            int a = 33;
-            Console.WriteLine(a);
-            //a = Lol();
-            Console.WriteLine(a);
+			Thread thread1 = new Thread(MainWin.InitCons);
+			thread1.Start();
         }
 
         private void BtnGuide_Click(object sender, EventArgs e)
