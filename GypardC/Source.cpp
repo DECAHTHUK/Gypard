@@ -23,6 +23,8 @@ int handlesL_state_arr[5] = {0};
 int right_joy_prev_state[17] = {0};
 int right_joy_current_state[17] = {0}; // 4 + | 7 rstick | 9 r | 11 rt | 12 b | 13 a | 14 y | 15 x | 16 home
 
+unsigned char bindings[17] = {0};
+
 typedef struct {
 	int Num;
 	int Handle;
@@ -34,6 +36,9 @@ void init_cons() {
 	JslGetConnectedDeviceHandles(deviceHandleArray, a);
 	Right_Handle = deviceHandleArray[0];
 	j1JSS = JslGetSimpleState(deviceHandleArray[0]);
+	bindings[7] = 0x46;
+	bindings[9] = 0x20;
+	bindings[12] = 0x11;
 	init_threads();
 }
 
@@ -133,47 +138,11 @@ DWORD WINAPI button_inputs(LPVOID handle) {
 DWORD WINAPI handle_button_right(LPVOID num_handle) {
 	Num_Handle it = *(Num_Handle*)num_handle;
 	int num = it.Num;
-	switch (num) {
-		case 4: // +
-            
-			break;
-		case 7: // rstick
-			keybd_event(0x46, 0x46, 0, 0);
-			while(right_joy_current_state[7] != 0) {
-				Sleep(100);
-			}
-			keybd_event(0x46, 0x46, KEYEVENTF_KEYUP, 0);
-			break;
-		case 9: // r
-			keybd_event(0x20, 0x20, 0, 0); 
-			while(right_joy_current_state[9] == 1) {
-				Sleep(100);
-			}
-			keybd_event(0x20, 0x20, KEYEVENTF_KEYUP, 0);
-			break;
-		case 11: // rt
-
-			break;
-		case 12: // b
-			keybd_event(0x11, 0x11, 0, 0);
-			while(right_joy_current_state[12] == 1) {
-				Sleep(100);
-			}
-			keybd_event(0x11, 0x11, KEYEVENTF_KEYUP, 0);
-			break;
-		case 13: // a
-			
-			break;
-		case 14: // y
-			
-			break;
-		case 15: // x
-			
-			break;
-		case 16: // home
-			
-			break;
+	keybd_event(bindings[num], bindings[num], 0, 0);
+	while(right_joy_current_state[7] != 0) {
+		Sleep(100);
 	}
+	keybd_event(bindings[num], bindings[num], KEYEVENTF_KEYUP, 0);
 	handlesR_state_arr[it.Handle] = 0;
 	return 0;
 }
