@@ -1,13 +1,3 @@
-#define CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#define HAVE_STRUCT_TIMESPEC
-#include <conio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <windows.h>
-
-#include "JoyShockLibrary.h"
-
 #include "Header.h"
 
 int Right_Handle;
@@ -15,20 +5,14 @@ int Left_Handle;
 
 JOY_SHOCK_STATE j1JSS, j2JSS;
 IMU_STATE j1IS, j2IS;
-MOTION_STATE j1MS, j2MS;
 
-int handlesR_state_arr[5] = {0};
-int handlesL_state_arr[5] = {0};
+int threads_state[10] = {0};
 
-int right_joy_prev_state[17] = {0};
-int right_joy_current_state[17] = {0}; // 4 + | 7 rstick | 9 r | 11 rt | 12 b | 13 a | 14 y | 15 x | 16 home
+int btn_prev_state[18] = {0};
+int btn_current_state[18] = {0}; // 4 + | 7 rstick | 9 r | 11 rt | 12 b | 13 a | 14 y | 15 x | 16 home
 
-unsigned char bindings[17] = {0};
+unsigned char bindings[18] = {0x31, 0x33, 0x32, 0x34, 0x51, 0x43, 0x10, 0x46, 0x02, 0x47, 0, 0, 0x11, 0x20, 0x52, 0x45, VK_ESCAPE, 0x09};
 
-typedef struct {
-	int Num;
-	int Handle;
-}Num_Handle;
 
 void init_cons() {
 	int a = JslConnectDevices();
@@ -36,218 +20,138 @@ void init_cons() {
 	JslGetConnectedDeviceHandles(deviceHandleArray, a);
 	Right_Handle = deviceHandleArray[0];
 	j1JSS = JslGetSimpleState(deviceHandleArray[0]);
-	bindings[7] = 0x46;
-	bindings[9] = 0x20;
-	bindings[12] = 0x11;
 	init_threads();
 }
 
-void init_threads() {
-	HANDLE stickR, test1, btns, stickL;
+void init_threads() { 
+	HANDLE stickR, stickL, triggerR, triggerL, btns;
 	stickR = CreateThread(NULL, 0, stick, (void*)&Right_Handle, 0, NULL);
-    test1 = CreateThread(NULL, 0, test, NULL, 0, NULL);
-	btns = CreateThread(NULL, 0, button_inputs, (void*)&Right_Handle, 0, NULL);
+    stickL = CreateThread(NULL, 0, stick, (void*)&Left_Handle, 0, NULL);
+    triggerR = CreateThread(NULL, 0, triggers, (void*)&Right_Handle, 0, NULL);
+    triggerL = CreateThread(NULL, 0, triggers, (void*)&Left_Handle, 0, NULL);
+	btns = CreateThread(NULL, 0, button_inputs, NULL, 0, NULL);
 }
 
-DWORD WINAPI test(LPVOID shit) {
-	while (true) {
-		j1JSS = JslGetSimpleState(0);
-		if (j1JSS.rTrigger == 1) {
-			POINT p;
-			GetCursorPos(&p);
-			mouse_event(MOUSEEVENTF_LEFTDOWN, p.x, p.y, 0, 0);
-			while (j1JSS.rTrigger == 1) {
-				j1JSS = JslGetSimpleState(0);
-                Sleep(WAITING_TICK);
+DWORD WINAPI triggers(LPVOID handle) {
+	if (*(int *)handle == Right_Handle) {
+		while (true) {
+			j1JSS = JslGetSimpleState(0);
+			if (j1JSS.rTrigger == 1) {
+				POINT p;
+				GetCursorPos(&p);
+				mouse_event(MOUSEEVENTF_LEFTDOWN, p.x, p.y, 0, 0);
+				while (j1JSS.rTrigger == 1) {
+					j1JSS = JslGetSimpleState(0);
+					Sleep(DEFAULT_TICK);
+				}
+				GetCursorPos(&p);
+				mouse_event(MOUSEEVENTF_LEFTUP, p.x, p.y, 0, 0);
 			}
-			GetCursorPos(&p);
-			mouse_event(MOUSEEVENTF_LEFTUP, p.x, p.y, 0, 0);
+			Sleep(DEFAULT_TICK);
 		}
-		Sleep(WAITING_TICK);
+	}
+	else {
+		j2IS = JslGetIMUState(0);
+        while (true) {
+			while(btn_current_state[10] == 1) {
+				j2IS = JslGetIMUState(0);
+				mouse_event(MOUSEEVENTF_MOVE, round(j2IS.gyroY / 10), round(j2IS.gyroX / 10), 0, 0);
+				Sleep(DEFAULT_TICK);
+			}
+			Sleep(WAITING_TICK);
+		}
 	}
 	return 0;
 }
 
 DWORD WINAPI stick(LPVOID handle) {
 	if (*((int *)handle) == Right_Handle) {
-		POINT pr;
-		GetCursorPos(&pr);
-		float StickX = pr.x;
-		float StickY = pr.y;
         j1JSS = JslGetSimpleState(*((int *)handle));
 		while (true) {
             j1JSS = JslGetSimpleState(*((int *)handle));
+			j2JSS = JslGetSimpleState(1);
 			if (j1JSS.stickRX != 0 || j1JSS.stickRY > 0.001) {
-				float temp = 5;
+				float temp = 10;
 				while (j1JSS.stickRX != 0 || j1JSS.stickRY > 0.001) {
                     j1JSS = JslGetSimpleState(*((int *)handle));
-					StickX += j1JSS.stickRX * temp;
-					StickY -= (j1JSS.stickRY + 0.000488) * temp;
-					SetCursorPos(StickX, StickY);
+					mouse_event(MOUSEEVENTF_MOVE, round(j1JSS.stickRX * temp), round(-j1JSS.stickRY * temp), 0, 0);
 					Sleep(DEFAULT_TICK);
 					temp += 0.15;
 				}
-			} else {
-				GetCursorPos(&pr);
-				StickX = pr.x;
-				StickY = pr.y;
 			}
 			Sleep(DEFAULT_TICK);
 		}
+	}
+	else {
+
 	}
 	return 0;
 	// TODO: leftCon
 }
 
-DWORD WINAPI button_inputs(LPVOID handle) {
-	if (*((int *)handle) == Right_Handle) {
-		HANDLE btn11, btn21, btn31, btn41, btn51;
-        HANDLE* handle_right_arr[5] = {&btn11, &btn21, &btn31, &btn41, &btn51};
-		while(true) {
-			get_buttons(j1JSS.buttons);
-			for(int i = 0; i < 17; i++) {
-				if((right_joy_current_state[i] - right_joy_prev_state[i] > 0) && i != 11) {
-					for(int j = 0; j < 5; j++) {
-						if(handlesR_state_arr[j] == 0) {
-							handlesR_state_arr[j] = 1;
-							Num_Handle now;
-							now.Num = i;
-							now.Handle = j;
-							*handle_right_arr[j] = CreateThread(NULL, 0, handle_button_right, (void*)&now, 0, NULL);
-							break;
-						}
+DWORD WINAPI button_inputs(LPVOID nthn) {
+	HANDLE btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
+    HANDLE* handle_right_arr[10] = {&btn1, &btn2, &btn3, &btn4, &btn5, &btn6, &btn7, &btn8, &btn9, &btn10};
+	while(true) {
+		get_buttons(j1JSS.buttons, j2JSS.buttons);
+		for(int i = 0; i < 17; i++) {
+			if((btn_current_state[i] - btn_prev_state[i] > 0) && i != 11 && i != 12) {
+				for(int j = 0; j < 5; j++) {
+					if(threads_state[j] == 0) {
+						threads_state[j] = 1;
+						Num_Handle now;
+						now.Num = i;
+						now.Handle = j;
+						*handle_right_arr[j] = CreateThread(NULL, 0, handle_button, (void*)&now, 0, NULL);
+						break;
 					}
 				}
 			}
-			for(int i = 0; i < 17; i++) {
-				right_joy_prev_state[i] = right_joy_current_state[i];
-			}
-			Sleep(WAITING_TICK);
 		}
-	}
-	else if(*((int*)handle) == Left_Handle) {
-
-	}
-	else {
-		return NULL;
+		for(int i = 0; i < 18; i++) {
+			btn_prev_state[i] = btn_current_state[i];
+		}
+		Sleep(WAITING_TICK);
 	}
 	return 0;
 }
 
-
-DWORD WINAPI handle_button_right(LPVOID num_handle) {
+DWORD WINAPI handle_button(LPVOID num_handle) {
 	Num_Handle it = *(Num_Handle*)num_handle;
 	int num = it.Num;
 	keybd_event(bindings[num], bindings[num], 0, 0);
-	while(right_joy_current_state[7] != 0) {
+	while(btn_current_state[num] != 0) {
 		Sleep(100);
 	}
 	keybd_event(bindings[num], bindings[num], KEYEVENTF_KEYUP, 0);
-	handlesR_state_arr[it.Handle] = 0;
+	threads_state[it.Handle] = 0;
 	return 0;
 }
 
-void get_buttons(int num) {
+void get_buttons(int num1, int num2) {
     int k = 1;
 	int counter = 0;
-    while (num > 0)
+    int a[18] = {0};
+    while (num1 > 0)
     {
-        right_joy_current_state[counter] = (num % 2);
+        a[counter] = (num1 % 2);
 		counter++;
         k *= 10;
-        num /= 2;
+        num1 /= 2;
     }
-	for(int i = counter; i < 17; i++) {
-		right_joy_current_state[i] = 0;
+    int b[18] = {0};
+	k = 1;
+	counter = 0;
+	while (num2 > 0) {
+		b[counter] = (num1 % 2);
+		counter++;
+        k *= 10;
+        num1 /= 2;
+	}
+	for(int i = 0; i < 18; i++) {
+		if(b[i] == 1) {
+            a[i] = 1;
+		}
+        btn_current_state[i] = a[i];
 	}
 }
-
-//int check_run_btn(int btnId, int handle) {
-//	if(handle == Right_Handle) {
-//		switch(btnId) { // 16 + | 128 rstick | 512 r | 2048 rt | 4096 b | 8192 a | 16384 y | 32768 x | 65536 home
-//			case 16:
-//				if(right_joy_button_state[0] == 0) {
-//					right_joy_button_state[0] = 1;
-//					return 0;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 128:
-//				if(right_joy_button_state[1] == 0) {
-//					right_joy_button_state[1] = 1;
-//					return 1;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 512:
-//				if(right_joy_button_state[2] == 0) {
-//					right_joy_button_state[2] = 1;
-//					return 2;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 2048:
-//				if(right_joy_button_state[3] == 0) {
-//					right_joy_button_state[3] = 1;
-//					return 3;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 4096:
-//				if(right_joy_button_state[4] == 0) {
-//					right_joy_button_state[4] = 1;
-//					return 4;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 8192:
-//				if(right_joy_button_state[5] == 0) {
-//					right_joy_button_state[5] = 1;
-//					return 5;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 16384:
-//				if(right_joy_button_state[6] == 0) {
-//					right_joy_button_state[6] = 1;
-//					return 6;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 32768:
-//				if(right_joy_button_state[7] == 0) {
-//					right_joy_button_state[7] = 1;
-//					return 7;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			case 65536:
-//				if(right_joy_button_state[8] == 0) {
-//					right_joy_button_state[8] = 1;
-//					return 8;
-//				}
-//				else {
-//					return -1;
-//				}
-//				break;
-//			default:
-//				return NULL;
-//		}
-//	}
-//}
