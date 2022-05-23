@@ -1,2 +1,2 @@
 # Gypard
-Description
+App for joycons to work on pc
