@@ -14,6 +14,10 @@ extern "C" __declspec(dllexport) void init_cons();
 
 void init_cons();
 
+extern "C" __declspec(dllexport) void terminate_program();
+
+void terminate_program();
+
 DWORD WINAPI stick(LPVOID handle);
 
 DWORD WINAPI triggers(LPVOID handle);
@@ -21,6 +25,8 @@ DWORD WINAPI triggers(LPVOID handle);
 DWORD WINAPI button_inputs(LPVOID handle);
 
 DWORD WINAPI handle_button(LPVOID num);
+
+DWORD WINAPI check_state(LPVOID nthn);
 
 void init_threads();
 
@@ -34,4 +40,5 @@ typedef struct {
 }Num_Handle;
 
 #define DEFAULT_TICK 10
-#define WAITING_TICK 50
+#define WAITING_TICK 30
+#define SLEEPING_TICK 300
