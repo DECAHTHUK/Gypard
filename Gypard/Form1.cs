@@ -15,10 +15,7 @@ namespace Gypard
     public partial class MainWin : Form
     {
         [DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void InitCons();
-
-		[DllImport("GypardC.dll", CallingConvention = CallingConvention.Cdecl)]
-		static extern void Stick(int handle);
+        static extern void init_cons();
 
 		public MainWin()
         {
@@ -82,7 +79,7 @@ namespace Gypard
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
-			Thread thread1 = new Thread(MainWin.InitCons);
+			Thread thread1 = new Thread(MainWin.init_cons);
 			thread1.Start();
         }
 
