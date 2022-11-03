@@ -2,10 +2,11 @@
 App for joycons from ali to work on pc.
 This project was intended to be commercial, but the development stopped before getting to any configurable state.
 It is now works on default settings, without any customiation realized. Have to click RUN button to start the application.
-Interface:
+## Interface:
 
 ![image](https://user-images.githubusercontent.com/89610640/199732781-90847256-5aba-4cb0-86d3-21e423e53388.png)
-Tray icon:
+
+## Tray icon:
 
 ![image](https://user-images.githubusercontent.com/89610640/199733199-cf200260-8486-4279-a7b3-1f55af4abe71.png)
 
